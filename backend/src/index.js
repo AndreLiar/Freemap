@@ -1,9 +1,17 @@
-const app = require('./app');
+require("dotenv").config();
+const app = require("./app");
+const connectDB = require("./config/db");
+const admin = require("firebase-admin");
 
-// Environment variables
-const PORT = process.env.PORT || 5000;
+// Firebase Admin Initialization
+const serviceAccount = require("./config/freemap-2e057-firebase-adminsdk-fbsvc-8c0db560e7.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+// Connect to MongoDB
+connectDB();
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

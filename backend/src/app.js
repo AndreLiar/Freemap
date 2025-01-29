@@ -1,16 +1,18 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors"); // Import the CORS middleware
+const profileRoutes = require("./routes/profileRoutes");
 
-// Create an Express app
 const app = express();
 
-// Middleware
-app.use(cors()); // Enable CORS
-app.use(express.json()); // Parse JSON request bodies
+// Enable CORS for all origins
+app.use(cors());
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+// Parse JSON request bodies
+
+app.use(bodyParser.json());
+
+// API Routes
+app.use("/api/profile", profileRoutes);
 
 module.exports = app;
