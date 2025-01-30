@@ -1,0 +1,3 @@
+.env
+# Ignore Firebase Admin SDK JSON file
+src/config/freemap-2e057-firebase-adminsdk-fbsvc-8c0db560e7.json
