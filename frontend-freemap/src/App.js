@@ -6,6 +6,9 @@ import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute
+import CallUser from "./components/CallUser";
+import IncomingCall from "./components/IncommingCall";
+import JitsiRoom from "./components/CallingViewer";
 
 function App() {
   return (
@@ -16,6 +19,13 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+
+          <Route path="/call" element={
+            <ProtectedRoute>
+              <CallUser userId="4GMedOrsMzRKhCZiAAAf" />
+            </ProtectedRoute>} />
+          <Route path="/incoming-call" element={<IncomingCall />} />
+          <Route path="/room/:roomId" element={<JitsiRoom />} />
 
           {/* Protected Routes */}
           <Route
