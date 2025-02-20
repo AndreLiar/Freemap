@@ -1,13 +1,7 @@
 // src/components/PhotoUpload.jsx
-
 import React from "react";
+import { FaCamera } from "react-icons/fa";
 
-/**
- * PhotoUpload
- * - Shows current profile photo (if any)
- * - Allows user to pick a file to upload
- * - We rely on 'editingField' to decide if we are in "edit mode"
- */
 function PhotoUpload({
   profilePhoto,
   editingField,
@@ -17,23 +11,31 @@ function PhotoUpload({
 }) {
   return (
     <div className="mb-3">
-      <p><strong>Profile Photo:</strong></p>
+      <p className="fw-bold">
+        <FaCamera className="me-2 text-secondary" />
+        Photo de profil
+      </p>
 
       {profilePhoto ? (
         <img
           src={profilePhoto}
           alt="Profile"
+          className="img-fluid rounded-circle mb-2"
           style={{ width: "150px", height: "150px", objectFit: "cover" }}
         />
       ) : (
-        <p>No photo uploaded</p>
+        <p>Aucune photo</p>
       )}
 
       {editingField === "profilePhoto" ? (
         <div>
-          <input type="file" onChange={onFileChange} className="form-control my-2" />
+          <input
+            type="file"
+            onChange={onFileChange}
+            className="form-control my-2"
+          />
           <button className="btn btn-secondary" onClick={onCancelEdit}>
-            Cancel
+            Annuler
           </button>
         </div>
       ) : (
@@ -41,7 +43,7 @@ function PhotoUpload({
           className="btn btn-link p-0"
           onClick={() => onEditClick("profilePhoto")}
         >
-          {profilePhoto ? "Change Photo" : "Upload Photo"}
+          {profilePhoto ? "Changer la photo" : "Télécharger une photo"}
         </button>
       )}
     </div>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile"; // Import the Profile page
 import LandingPage from "./pages/LandingPage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute
@@ -26,6 +27,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Catch-all Route */}
           <Route path="*" element={<Navigate to="/" />} />
@@ -36,3 +45,4 @@ function App() {
 }
 
 export default App;
+

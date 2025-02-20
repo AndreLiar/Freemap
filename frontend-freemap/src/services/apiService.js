@@ -1,19 +1,89 @@
 import axios from "axios";
+import { auth } from "../firebase/firebaseConfig";
+import { signOut } from "firebase/auth";
 
-// Create an Axios instance
 const api = axios.create({
-  baseURL: "http://localhost:5001/api", // Your backend URL
+  baseURL: "http://localhost:5001/api",
 });
 
-// Add a request interceptor to include the Firebase token
-api.interceptors.request.use(async (config) => {
-  const user = JSON.parse(localStorage.getItem("user")); // Retrieve the user info from localStorage
-  if (user && user.token) {
-    config.headers.Authorization = `Bearer ${user.token}`;
+// Function to get auth token
+const getAuthToken = async () => {
+  const user = auth.currentUser;
+  if (user) {
+    return await user.getIdToken();
   }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
+  return null;
+};
+
+// Function to handle errors
+const handleApiError = async (error, navigate) => {
+  console.error("API Error:", error.response?.data || error.message);
+  if (error.response?.status === 401 || error.response?.status === 403) {
+    alert("Session expired. Please log in again.");
+    await signOut(auth);
+    localStorage.removeItem("user");
+    navigate("/login");
+  }
+  throw error;
+};
+
+// Fetch user profile
+export const fetchUserProfile = async (navigate) => {
+  try {
+    const token = await getAuthToken();
+    const { data } = await api.get("/profile/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  } catch (error) {
+    return handleApiError(error, navigate);
+  }
+};
+
+// Partial update (for a single field)
+export const updateProfileField = async (field, value, navigate) => {
+  try {
+    const token = await getAuthToken();
+    await api.patch(
+      "/profile/me",
+      { [field]: value },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return true;
+  } catch (error) {
+    return handleApiError(error, navigate);
+  }
+};
+
+// Upload profile photo
+export const uploadProfilePhoto = async (file, navigate) => {
+  try {
+    const token = await getAuthToken();
+    const formData = new FormData();
+    formData.append("photo", file);
+    const { data } = await api.post("/profile/me/photo", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    return handleApiError(error, navigate);
+  }
+};
+
+// Create (or fully update) new profile
+export const createProfile = async (profileData, navigate) => {
+  try {
+    const token = await getAuthToken();
+    await api.put("/profile/me", profileData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return true;
+  } catch (error) {
+    return handleApiError(error, navigate);
+  }
+};
 
 export default api;

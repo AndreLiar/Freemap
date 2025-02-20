@@ -1,0 +1,19 @@
+/* custom.css */
+.bg-primary {
+    background-color: #238FB7 !important;
+  }
+  
+  .text-primary {
+    color: #238FB7 !important;
+  }
+  
+  .btn-primary {
+    background-color: #238FB7;
+    border-color: #238FB7;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1B6F8C;
+    border-color: #1B6F8C;
+  }
+  
