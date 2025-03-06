@@ -12,7 +12,7 @@ export default function NavBar({ currentUser }) {
           </a>
           {!currentUser ? (
             <div>
-            <Link to="/signin" className="btn btn-outline-primary  me-4">
+              <Link to="/signin" className="btn btn-outline-primary  me-4">
                 Connexion
               </Link>
               <Link to="/signup" className="btn btn-primary">

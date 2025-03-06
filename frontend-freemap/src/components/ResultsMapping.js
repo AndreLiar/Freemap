@@ -19,9 +19,7 @@ L.Icon.Default.mergeOptions({
  * - Renders a Leaflet map if lat/lng exist
  * - Places a marker and popup for the address
  */
-function ResultsMapping({results}) {
- 
-
+function ResultsMapping({ results }) {
   return (
     <div className="mt-3 container">
       <MapContainer
@@ -33,13 +31,11 @@ function ResultsMapping({results}) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
         />
-        {
-            results.map((result) => (
-                <Marker position={[result.location.lat, result.location.lng]}>
-                <Popup>{result.location.address}</Popup>
-                </Marker>
-            ))
-        }
+        {results.map((result) => (
+          <Marker position={[result.location.lat, result.location.lng]}>
+            <Popup>{result.location.address}</Popup>
+          </Marker>
+        ))}
         {/* <Marker position={[lat, lng]}>
           <Popup>{address}</Popup>
         </Marker> */}

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import socket from "../services/socket";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const JitsiRoom = () => {
   const [callInfo, setCallInfo] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     socket.on("incoming-call", ({ from, roomId }) => {

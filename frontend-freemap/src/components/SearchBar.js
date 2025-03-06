@@ -19,9 +19,7 @@ export default function SearchBar({ setResults }) {
     // onChange({ target: { name: "locationLng", value: lon } });
   };
   const handleSubmit = async () => {
-    const result = await api.get(
-      "/profile/ile-de-france",
-    );
+    const result = await api.get("/profile/ile-de-france");
     if (result.data) {
       // console.log(result.data);
       // isResults=result.data;
@@ -34,26 +32,32 @@ export default function SearchBar({ setResults }) {
       <div className="container bg-white p-3 rounded">
         <div className=" row  ">
           <div className="col-5">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Chercher un mot-clé,un poste"
-                handleChange={handleChange}
-                />
-            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Chercher un mot-clé,un poste"
+              handleChange={handleChange}
+            />
+          </div>
           <div className="col-5">
-             <LocationAutocomplete initialAddress="" onSelectLocation={handleSelectLocation} countryCode="fr" />
-            </div>
+            <LocationAutocomplete
+              initialAddress=""
+              onSelectLocation={handleSelectLocation}
+              countryCode="fr"
+            />
+          </div>
           <div className="col-2">
-            <button type="submit" class="btn btn-primary mb-3 w-100" onClick={handleSubmit}>
+            <button
+              type="submit"
+              class="btn btn-primary mb-3 w-100"
+              onClick={handleSubmit}
+            >
               Search
             </button>
           </div>
         </div>
-        <div >
-        <a href="#" >
-          Filtres
-        </a>
+        <div>
+          <a href="#">Filtres</a>
         </div>
       </div>
     </div>
