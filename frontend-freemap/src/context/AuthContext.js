@@ -1,3 +1,5 @@
+//src/context/AuthContext.js
+
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../firebase/firebaseConfig";
 import {
@@ -26,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       const userData = {
         email: userCredential.user.email,
         token: token,
-        role: JSON.parse(localStorage.getItem("user"))?.role || "freelance", // Retrieve role from localStorage
+        role: JSON.parse(localStorage.getItem("user"))?.role || "freelance",
       };
       localStorage.setItem("user", JSON.stringify(userData));
       setCurrentUser(userData);
@@ -49,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       const userData = {
         email: userCredential.user.email,
         token: token,
-        role: "freelance", // Set default role to "freelance"
+        role: "freelance",
       };
       localStorage.setItem("user", JSON.stringify(userData));
       setCurrentUser(userData);
@@ -79,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         const userData = {
           email: user.email,
           token: storedUser?.token || null,
-          role: storedUser?.role || "freelance", // Default to "freelance" if role is not set
+          role: storedUser?.role || "freelance",
         };
         setCurrentUser(userData);
       } else {

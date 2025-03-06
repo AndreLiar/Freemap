@@ -1,48 +1,71 @@
 // src/components/ProfileView.jsx
-
 import React from "react";
-import LocationMap from "./LocationMap";
 import LocationAutocomplete from "./LocationAutocomplete";
-// Example: Using React Bootstrap Icons or any other library
 import { BsCheckCircleFill } from "react-icons/bs";
+import {
+  FaUser,
+  FaBriefcase,
+  FaMoneyBillWave,
+  FaFileAlt,
+  FaIdCard,
+  FaMapMarkerAlt,
+  FaPencilAlt,
+  FaCheck,
+  FaTimes,
+} from "react-icons/fa";
 
-/**
- * ProfileView
- * - Displays and edits the user's fields:
- *   - name, specialization, hourlyRate, description, siret, location
- * - Shows a "certified" icon if `profile.certified === true`
- */
 function ProfileView({
-  profile, // Full profile from backend (includes .certified, etc.)
-  formData, // The "live" editable state (like name, siret, etc.)
-  editingField, // Which field is in "edit" mode
-  isLocationValid, // For location bounding checks
-  siretValidationStatus, // { valid: boolean, message: string } or null
-  onEditClick, // (fieldName) => void
-  onCancelEdit, // () => void
-  onChange, // handle input changes
-  onPartialSave, // (fieldName) => partial update
+  profile,
+  formData,
+  editingField,
+  isLocationValid,
+  siretValidationStatus,
+  onEditClick,
+  onCancelEdit,
+  onChange,
+  onPartialSave,
 }) {
   const { name, specialization, hourlyRate, description, siret, location } =
     formData;
 
-  // Called if user picks an address from the autocomplete
+  // Handle new location from autocomplete
   const handleSelectLocation = ({ lat, lon, address }) => {
     onChange({ target: { name: "locationAddress", value: address } });
     onChange({ target: { name: "locationLat", value: lat } });
     onChange({ target: { name: "locationLng", value: lon } });
   };
 
+  // Reusable for Save/Cancel buttons
+  const renderEditActions = (fieldName) => (
+    <div className="mt-2">
+      <button
+        className="btn btn-success me-2 d-inline-flex align-items-center"
+        onClick={() => onPartialSave(fieldName)}
+      >
+        <FaCheck className="me-1" />
+        Enregistrer
+      </button>
+      <button
+        className="btn btn-secondary d-inline-flex align-items-center"
+        onClick={onCancelEdit}
+      >
+        <FaTimes className="me-1" />
+        Annuler
+      </button>
+    </div>
+  );
+
   return (
     <>
-      {/* NAME + Certified Badge if profile.certified is true */}
+      {/* NOM + Badge si certifié */}
       <div className="mb-3">
         <p>
-          <strong>Name:</strong> {name}{" "}
+          <FaUser className="me-2 text-secondary" />
+          <strong>Nom:</strong> {name}{" "}
           {profile.certified && (
             <BsCheckCircleFill
               className="text-primary ms-2"
-              title="Certified Account"
+              title="Compte certifié"
               style={{ fontSize: "1.2rem" }}
             />
           )}
@@ -54,33 +77,27 @@ function ProfileView({
               name="name"
               value={name}
               onChange={onChange}
-              className="form-control my-2"
+              className="form-control"
               required
             />
-            <button
-              className="btn btn-success me-2"
-              onClick={() => onPartialSave("name")}
-            >
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onCancelEdit}>
-              Cancel
-            </button>
+            {renderEditActions("name")}
           </div>
         ) : (
           <button
-            className="btn btn-link p-0"
+            className="btn btn-link p-0 d-inline-flex align-items-center"
             onClick={() => onEditClick("name")}
           >
-            Edit Name
+            <FaPencilAlt className="me-1" />
+            Modifier
           </button>
         )}
       </div>
 
-      {/* SPECIALIZATION */}
+      {/* SPÉCIALISATION */}
       <div className="mb-3">
         <p>
-          <strong>Specialization:</strong> {specialization}
+          <FaBriefcase className="me-2 text-secondary" />
+          <strong>Spécialisation:</strong> {specialization}
         </p>
         {editingField === "specialization" ? (
           <div>
@@ -89,33 +106,27 @@ function ProfileView({
               name="specialization"
               value={specialization}
               onChange={onChange}
-              className="form-control my-2"
+              className="form-control"
               required
             />
-            <button
-              className="btn btn-success me-2"
-              onClick={() => onPartialSave("specialization")}
-            >
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onCancelEdit}>
-              Cancel
-            </button>
+            {renderEditActions("specialization")}
           </div>
         ) : (
           <button
-            className="btn btn-link p-0"
+            className="btn btn-link p-0 d-inline-flex align-items-center"
             onClick={() => onEditClick("specialization")}
           >
-            Edit Specialization
+            <FaPencilAlt className="me-1" />
+            Modifier
           </button>
         )}
       </div>
 
-      {/* HOURLY RATE */}
+      {/* TAUX HORAIRE */}
       <div className="mb-3">
         <p>
-          <strong>Hourly Rate:</strong> €{hourlyRate}
+          <FaMoneyBillWave className="me-2 text-secondary" />
+          <strong>Taux horaire:</strong> €{hourlyRate}
         </p>
         {editingField === "hourlyRate" ? (
           <div>
@@ -124,25 +135,18 @@ function ProfileView({
               name="hourlyRate"
               value={hourlyRate}
               onChange={onChange}
-              className="form-control my-2"
+              className="form-control"
               required
             />
-            <button
-              className="btn btn-success me-2"
-              onClick={() => onPartialSave("hourlyRate")}
-            >
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onCancelEdit}>
-              Cancel
-            </button>
+            {renderEditActions("hourlyRate")}
           </div>
         ) : (
           <button
-            className="btn btn-link p-0"
+            className="btn btn-link p-0 d-inline-flex align-items-center"
             onClick={() => onEditClick("hourlyRate")}
           >
-            Edit Hourly Rate
+            <FaPencilAlt className="me-1" />
+            Modifier
           </button>
         )}
       </div>
@@ -150,6 +154,7 @@ function ProfileView({
       {/* DESCRIPTION */}
       <div className="mb-3">
         <p>
+          <FaFileAlt className="me-2 text-secondary" />
           <strong>Description:</strong> {description}
         </p>
         {editingField === "description" ? (
@@ -158,25 +163,18 @@ function ProfileView({
               name="description"
               value={description}
               onChange={onChange}
-              className="form-control my-2"
+              className="form-control"
               required
             />
-            <button
-              className="btn btn-success me-2"
-              onClick={() => onPartialSave("description")}
-            >
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onCancelEdit}>
-              Cancel
-            </button>
+            {renderEditActions("description")}
           </div>
         ) : (
           <button
-            className="btn btn-link p-0"
+            className="btn btn-link p-0 d-inline-flex align-items-center"
             onClick={() => onEditClick("description")}
           >
-            Edit Description
+            <FaPencilAlt className="me-1" />
+            Modifier
           </button>
         )}
       </div>
@@ -184,7 +182,8 @@ function ProfileView({
       {/* SIRET */}
       <div className="mb-3">
         <p>
-          <strong>SIRET:</strong> {siret || "Not specified"}
+          <FaIdCard className="me-2 text-secondary" />
+          <strong>SIRET:</strong> {siret || "Non spécifié"}
         </p>
         {editingField === "siret" ? (
           <div>
@@ -193,10 +192,9 @@ function ProfileView({
               name="siret"
               value={siret}
               onChange={onChange}
-              className="form-control my-2"
-              placeholder="Enter 14-digit SIRET"
+              className="form-control"
+              placeholder="14 chiffres"
             />
-            {/* Show immediate validation feedback if any */}
             {siretValidationStatus && (
               <div
                 className={`mb-2 ${
@@ -206,31 +204,24 @@ function ProfileView({
                 {siretValidationStatus.message}
               </div>
             )}
-            <button
-              className="btn btn-success me-2"
-              onClick={() => onPartialSave("siret")}
-            >
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onCancelEdit}>
-              Cancel
-            </button>
+            {renderEditActions("siret")}
           </div>
         ) : (
           <button
-            className="btn btn-link p-0"
+            className="btn btn-link p-0 d-inline-flex align-items-center"
             onClick={() => onEditClick("siret")}
           >
-            Edit SIRET
+            <FaPencilAlt className="me-1" />
+            Modifier
           </button>
         )}
       </div>
 
-      {/* LOCATION */}
+      {/* ADRESSE (mais pas la carte) */}
       <div className="mb-3">
         <p>
-          <strong>Location Address:</strong>{" "}
-          {location.address || "Not specified"}
+          <FaMapMarkerAlt className="me-2 text-secondary" />
+          <strong>Adresse:</strong> {location.address || "Non spécifiée"}
         </p>
         {editingField === "location" ? (
           <div>
@@ -238,41 +229,26 @@ function ProfileView({
               initialAddress={location.address}
               onSelectLocation={handleSelectLocation}
             />
-
             {!isLocationValid && (
               <div className="text-danger mb-2">
-                Invalid or outside Île-de-France.
+                Adresse invalide ou hors Île-de-France.
               </div>
             )}
-            <button
-              className="btn btn-success me-2"
-              onClick={() => onPartialSave("location")}
-            >
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onCancelEdit}>
-              Cancel
-            </button>
+            {renderEditActions("location")}
             <p className="mt-2">
               Lat: {location.lat ?? "N/A"} | Lng: {location.lng ?? "N/A"}
             </p>
           </div>
         ) : (
           <button
-            className="btn btn-link p-0"
+            className="btn btn-link p-0 d-inline-flex align-items-center"
             onClick={() => onEditClick("location")}
           >
-            Edit Location
+            <FaPencilAlt className="me-1" />
+            Modifier
           </button>
         )}
       </div>
-
-      {/* MAP PREVIEW */}
-      <LocationMap
-        lat={location.lat}
-        lng={location.lng}
-        address={location.address}
-      />
     </>
   );
 }
