@@ -1,11 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
-import Signin from "./pages/Signin";
+import Signin from "./pages/login";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
+import HomePage from "./pages/HomePage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css"
+// import HomePage from "./pages/HomePage";
+
 
 function App() {
   return (
@@ -16,7 +21,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-
+          <Route path="/HomePage" element={<HomePage />} />
+          
           {/* Protected Routes */}
           <Route
             path="/dashboard"

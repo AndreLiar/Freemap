@@ -28,6 +28,86 @@
   color: #61dafb;
 }
 
+.bg-primary {
+  --bs-bg-opacity: 1;
+  background-color: #238FB7 !important;
+}
+/* .groundback{
+  background-image:url("The_Best_Free_Presentation_Icons_For_Your_Project___GraphicMama.jpg") ;
+  background-size: 15%;
+  background-position: center;
+  opacity: 0.7;
+  z-index: -1;
+} */
+.groundback {
+  position: relative;
+  z-index: 1;
+}
+
+.groundback::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("The_Best_Free_Presentation_Icons_For_Your_Project___GraphicMama.jpg");
+  background-size: 15%; /* Zoom à 150% */
+  background-position: center;
+  opacity: 0.5; /* Ajustez cette valeur entre 0 (transparent) et 1 (opaque) */
+  z-index: -1;
+}
+
+
+.text-primary {
+  --bs-text-opacity: 1;
+  color:  #238FB7 !important;
+}
+.bg-custom {
+  background-color: rgba(35, 143, 183, var(--bs-bg-opacity));
+}
+.rotate-text {
+  transform: rotate(180deg); /* Retourne le texte */
+}
+
+
+/* .social-icons {
+  display: flex;
+  gap: 10px;
+} */
+
+.social-icon {
+  color: white;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
+.instagram:hover {
+  color: #E1306C;
+}
+
+.facebook:hover {
+  color: #1877F2;
+}
+
+.linkedin:hover {
+  color: #0A66C2;
+}
+
+
+/* .bg-primary {
+  color:  white !important;
+  
+}  */
+
+/* .mb-3{
+  color: ;
+} */
+/* background-color: rgba(35, 143, 183, 0.17); */
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -12,7 +12,7 @@ function LandingPage() {
           Sign Up
         </Link>
         <Link to="/signin" className="btn btn-secondary">
-          Sign In
+          Log In
         </Link>
       </div>
     </div>
