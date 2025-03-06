@@ -1,10 +1,11 @@
-// src/context/Navbar.js
+// src/context/NavBar.js
 import React, { useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { FaSignOutAlt } from "react-icons/fa";
 import logo from "../assets/FREEMAP.png";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ currentUser, onSignOut }) => {
+const NavBar = ({ currentUser, onSignOut }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -22,13 +23,24 @@ const Navbar = ({ currentUser, onSignOut }) => {
     <nav className="navbar navbar-light bg-white border-bottom shadow-sm px-3 d-flex justify-content-between">
       {/* Left Side: Logo + Brand */}
       <div className="d-flex align-items-center">
+        <Link to="/" className="navbar-brand">
         <img src={logo} alt="Logo" height="40" className="me-2" />
         {/* You can color this text with "text-primary" if you set #238FB7 as your Bootstrap primary color */}
+        
         <span className="fw-bold text-primary fs-4 m-0">FREEMAP</span>
+        </Link>
       </div>
 
       {/* Right Side: User Icon + Dropdown */}
-      <div className="position-relative">
+      {!currentUser ? 
+        (<div>
+          <Link to="/signin" className="btn btn-outline-primary  me-4">
+            Connexion
+          </Link>
+          <Link to="/signup" className="btn btn-primary">
+            Inscription
+          </Link>
+        </div>):(<div className="position-relative">
         <FiUser
           size={28}
           onClick={toggleDropdown}
@@ -57,9 +69,10 @@ const Navbar = ({ currentUser, onSignOut }) => {
             </button>
           </div>
         )}
-      </div>
+        </div>)
+        }
     </nav>
   );
 };
 
-export default Navbar;
+export default NavBar;

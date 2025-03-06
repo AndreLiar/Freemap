@@ -22,9 +22,9 @@ function Dashboard() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="">
       <NavBar currentUser={currentUser} onSignOut={handleSignOut} />
-      <div className="mt-4">
+      <div className=" container mt-4">
         <h2>Dashboard</h2>
         <p>Welcome, {currentUser?.email}</p>
         {/* Navigation to Profile Page */}

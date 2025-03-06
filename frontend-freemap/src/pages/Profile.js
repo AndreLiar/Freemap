@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavBar";
 import ProfileForm from "../components/ProfileForm";
 import ProfileContent from "../components/ProfileContent";
 import { useProfile } from "../hooks/useProfile";
