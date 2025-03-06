@@ -17,7 +17,9 @@ function PhotoUpload({
 }) {
   return (
     <div className="mb-3">
-      <p><strong>Profile Photo:</strong></p>
+      <p>
+        <strong>Profile Photo:</strong>
+      </p>
 
       {profilePhoto ? (
         <img
@@ -31,7 +33,11 @@ function PhotoUpload({
 
       {editingField === "profilePhoto" ? (
         <div>
-          <input type="file" onChange={onFileChange} className="form-control my-2" />
+          <input
+            type="file"
+            onChange={onFileChange}
+            className="form-control my-2"
+          />
           <button className="btn btn-secondary" onClick={onCancelEdit}>
             Cancel
           </button>

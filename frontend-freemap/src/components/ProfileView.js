@@ -13,24 +13,18 @@ import { BsCheckCircleFill } from "react-icons/bs";
  * - Shows a "certified" icon if `profile.certified === true`
  */
 function ProfileView({
-  profile,                // Full profile from backend (includes .certified, etc.)
-  formData,              // The "live" editable state (like name, siret, etc.)
-  editingField,          // Which field is in "edit" mode
-  isLocationValid,       // For location bounding checks
+  profile, // Full profile from backend (includes .certified, etc.)
+  formData, // The "live" editable state (like name, siret, etc.)
+  editingField, // Which field is in "edit" mode
+  isLocationValid, // For location bounding checks
   siretValidationStatus, // { valid: boolean, message: string } or null
-  onEditClick,           // (fieldName) => void
-  onCancelEdit,          // () => void
-  onChange,              // handle input changes
-  onPartialSave,         // (fieldName) => partial update
+  onEditClick, // (fieldName) => void
+  onCancelEdit, // () => void
+  onChange, // handle input changes
+  onPartialSave, // (fieldName) => partial update
 }) {
-  const {
-    name,
-    specialization,
-    hourlyRate,
-    description,
-    siret,
-    location,
-  } = formData;
+  const { name, specialization, hourlyRate, description, siret, location } =
+    formData;
 
   // Called if user picks an address from the autocomplete
   const handleSelectLocation = ({ lat, lon, address }) => {
@@ -69,10 +63,7 @@ function ProfileView({
             >
               Save
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelEdit}
-            >
+            <button className="btn btn-secondary" onClick={onCancelEdit}>
               Cancel
             </button>
           </div>
@@ -88,7 +79,9 @@ function ProfileView({
 
       {/* SPECIALIZATION */}
       <div className="mb-3">
-        <p><strong>Specialization:</strong> {specialization}</p>
+        <p>
+          <strong>Specialization:</strong> {specialization}
+        </p>
         {editingField === "specialization" ? (
           <div>
             <input
@@ -105,10 +98,7 @@ function ProfileView({
             >
               Save
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelEdit}
-            >
+            <button className="btn btn-secondary" onClick={onCancelEdit}>
               Cancel
             </button>
           </div>
@@ -124,7 +114,9 @@ function ProfileView({
 
       {/* HOURLY RATE */}
       <div className="mb-3">
-        <p><strong>Hourly Rate:</strong> €{hourlyRate}</p>
+        <p>
+          <strong>Hourly Rate:</strong> €{hourlyRate}
+        </p>
         {editingField === "hourlyRate" ? (
           <div>
             <input
@@ -141,10 +133,7 @@ function ProfileView({
             >
               Save
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelEdit}
-            >
+            <button className="btn btn-secondary" onClick={onCancelEdit}>
               Cancel
             </button>
           </div>
@@ -160,7 +149,9 @@ function ProfileView({
 
       {/* DESCRIPTION */}
       <div className="mb-3">
-        <p><strong>Description:</strong> {description}</p>
+        <p>
+          <strong>Description:</strong> {description}
+        </p>
         {editingField === "description" ? (
           <div>
             <textarea
@@ -176,10 +167,7 @@ function ProfileView({
             >
               Save
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelEdit}
-            >
+            <button className="btn btn-secondary" onClick={onCancelEdit}>
               Cancel
             </button>
           </div>
@@ -195,7 +183,9 @@ function ProfileView({
 
       {/* SIRET */}
       <div className="mb-3">
-        <p><strong>SIRET:</strong> {siret || "Not specified"}</p>
+        <p>
+          <strong>SIRET:</strong> {siret || "Not specified"}
+        </p>
         {editingField === "siret" ? (
           <div>
             <input
@@ -222,10 +212,7 @@ function ProfileView({
             >
               Save
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelEdit}
-            >
+            <button className="btn btn-secondary" onClick={onCancelEdit}>
               Cancel
             </button>
           </div>
@@ -242,7 +229,8 @@ function ProfileView({
       {/* LOCATION */}
       <div className="mb-3">
         <p>
-          <strong>Location Address:</strong> {location.address || "Not specified"}
+          <strong>Location Address:</strong>{" "}
+          {location.address || "Not specified"}
         </p>
         {editingField === "location" ? (
           <div>
@@ -262,10 +250,7 @@ function ProfileView({
             >
               Save
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={onCancelEdit}
-            >
+            <button className="btn btn-secondary" onClick={onCancelEdit}>
               Cancel
             </button>
             <p className="mt-2">

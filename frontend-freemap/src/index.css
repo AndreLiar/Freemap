@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.searchBar {
+  background: linear-gradient(45deg, #238FB7, #025877);
+  height: 200px;
+}
+.searchBar a{
+  color:#238FB7;
+}
+.searchBar button{
+  background-color: #238FB7;
+  border: none;
+}
+.searchBar button:hover{
+  background-color: white;
+  border: 1px solid #238FB7;
+  color: #238FB7;
+}

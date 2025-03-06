@@ -8,6 +8,7 @@ import api from "../services/apiService";
 import DashboardHeader from "../components/DashboardHeader";
 import ProfileView from "../components/ProfileView";
 import PhotoUpload from "../components/PhotoUpload";
+import NavBar from "../components/NavBar";
 
 // Simple function to validate a 14-digit SIRET
 const validateSiret = (siret) => {
@@ -93,8 +94,14 @@ function Dashboard() {
           });
         }
       } catch (error) {
-        console.error("Error fetching profile:", error?.response?.data || error.message);
-        if (error?.response?.status === 401 || error?.response?.status === 403) {
+        console.error(
+          "Error fetching profile:",
+          error?.response?.data || error.message,
+        );
+        if (
+          error?.response?.status === 401 ||
+          error?.response?.status === 403
+        ) {
           alert("Session expired or invalid token. Please log in again.");
           await signOut(auth);
           navigate("/login");
@@ -139,7 +146,7 @@ function Dashboard() {
 
     try {
       const url = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=fr&viewbox=1.4,49.2,3.4,48.0&bounded=1&limit=1&q=${encodeURIComponent(
-        address
+        address,
       )}`;
       const res = await fetch(url);
       const data = await res.json();
@@ -214,13 +221,15 @@ function Dashboard() {
       if (field === "location") {
         const { address, lat, lng } = formData.location;
         if (!address || lat == null || lng == null || !isLocationValid) {
-          alert("Please enter a valid location in Île-de-France before saving.");
+          alert(
+            "Please enter a valid location in Île-de-France before saving.",
+          );
           return;
         }
         await api.patch(
           "/profile/me",
           { location: { address, lat, lng } },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         setProfile((prev) => ({
           ...prev,
@@ -240,7 +249,7 @@ function Dashboard() {
         await api.patch(
           "/profile/me",
           { siret: formData.siret },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         setProfile((prev) => ({
           ...prev,
@@ -256,7 +265,7 @@ function Dashboard() {
       await api.patch(
         "/profile/me",
         { [field]: formData[field] },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setProfile((prev) => ({
         ...prev,
@@ -265,7 +274,10 @@ function Dashboard() {
       setEditingField(null);
       alert("Profile field updated successfully!");
     } catch (error) {
-      console.error("Error partial saving:", error.response?.data || error.message);
+      console.error(
+        "Error partial saving:",
+        error.response?.data || error.message,
+      );
       if (error?.response?.status === 401 || error?.response?.status === 403) {
         alert("Session expired or invalid token. Please log in again.");
         await signOut(auth);
@@ -291,12 +303,16 @@ function Dashboard() {
       const formDataObj = new FormData();
       formDataObj.append("photo", file);
 
-      const { data: updatedProfile } = await api.post("/profile/me/photo", formDataObj, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+      const { data: updatedProfile } = await api.post(
+        "/profile/me/photo",
+        formDataObj,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       setProfile(updatedProfile);
       setFormData((prev) => ({
@@ -323,11 +339,24 @@ function Dashboard() {
   const handleSaveFull = async () => {
     if (!auth.currentUser) return;
 
-    const { name, specialization, hourlyRate, description, location, profilePhoto, siret } =
-      formData;
+    const {
+      name,
+      specialization,
+      hourlyRate,
+      description,
+      location,
+      profilePhoto,
+      siret,
+    } = formData;
 
     // Basic checks
-    if (!name || !specialization || !hourlyRate || !description || !location.address) {
+    if (
+      !name ||
+      !specialization ||
+      !hourlyRate ||
+      !description ||
+      !location.address
+    ) {
       alert("All fields (including Location) are required!");
       return;
     }
@@ -360,7 +389,7 @@ function Dashboard() {
           profilePhoto,
           siret,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       // After creating a new profile, set it in state
@@ -375,7 +404,10 @@ function Dashboard() {
       });
       alert("Profile fully created successfully!");
     } catch (err) {
-      console.error("Error saving full profile:", err.response?.data || err.message);
+      console.error(
+        "Error saving full profile:",
+        err.response?.data || err.message,
+      );
       if (err?.response?.status === 401 || err?.response?.status === 403) {
         alert("Session expired or invalid token. Please log in again.");
         await signOut(auth);
@@ -389,144 +421,151 @@ function Dashboard() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="container mt-5">
-      <DashboardHeader currentUser={currentUser} onSignOut={handleSignOut} />
+    <section>
+      <NavBar currentUser={currentUser} />
+      <div className="container mt-5">
+        <DashboardHeader currentUser={currentUser} onSignOut={handleSignOut} />
 
-      {profile ? (
-        <>
-          <h3>Your Profile</h3>
+        {profile ? (
+          <>
+            <h3>Your Profile</h3>
 
-          {/* Photo Section */}
-          <PhotoUpload
-            profilePhoto={profile.profilePhoto}
-            editingField={editingField}
-            onEditClick={setEditingField}
-            onCancelEdit={() => setEditingField(null)}
-            onFileChange={handlePhotoUpload}
-          />
-
-          {/* Existing Profile Fields (partial update) */}
-          <ProfileView
-            profile={profile}
-            formData={formData}
-            editingField={editingField}
-            isLocationValid={isLocationValid}
-            siretValidationStatus={siretValidationStatus}
-            onEditClick={setEditingField}
-            onCancelEdit={() => setEditingField(null)}
-            onChange={handleInputChange}
-            onPartialSave={handlePartialSave}
-          />
-        </>
-      ) : (
-        // **************************************************
-        // IF NO PROFILE => SHOW "CREATION" FORM
-        // **************************************************
-        <div>
-          <h3>No Profile Found</h3>
-          <p>Please complete your profile below:</p>
-
-          {/* Full creation fields */}
-          {/* Name */}
-          <div className="mb-3">
-            <label>Name</label>
-            <input
-              type="text"
-              name="name"
-              className="form-control"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Enter your name"
-              required
+            {/* Photo Section */}
+            <PhotoUpload
+              profilePhoto={profile.profilePhoto}
+              editingField={editingField}
+              onEditClick={setEditingField}
+              onCancelEdit={() => setEditingField(null)}
+              onFileChange={handlePhotoUpload}
             />
-          </div>
 
-          {/* Specialization */}
-          <div className="mb-3">
-            <label>Specialization</label>
-            <input
-              type="text"
-              name="specialization"
-              className="form-control"
-              value={formData.specialization}
+            {/* Existing Profile Fields (partial update) */}
+            <ProfileView
+              profile={profile}
+              formData={formData}
+              editingField={editingField}
+              isLocationValid={isLocationValid}
+              siretValidationStatus={siretValidationStatus}
+              onEditClick={setEditingField}
+              onCancelEdit={() => setEditingField(null)}
               onChange={handleInputChange}
-              placeholder="e.g. Plumber, Web Developer..."
-              required
+              onPartialSave={handlePartialSave}
             />
-          </div>
+          </>
+        ) : (
+          // **************************************************
+          // IF NO PROFILE => SHOW "CREATION" FORM
+          // **************************************************
+          <div>
+            <h3>No Profile Found</h3>
+            <p>Please complete your profile below:</p>
 
-          {/* Hourly Rate */}
-          <div className="mb-3">
-            <label>Hourly Rate (€)</label>
-            <input
-              type="number"
-              name="hourlyRate"
-              className="form-control"
-              value={formData.hourlyRate}
-              onChange={handleInputChange}
-              placeholder="e.g. 50"
-              required
-            />
-          </div>
+            {/* Full creation fields */}
+            {/* Name */}
+            <div className="mb-3">
+              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Enter your name"
+                required
+              />
+            </div>
 
-          {/* Description */}
-          <div className="mb-3">
-            <label>Description</label>
-            <textarea
-              name="description"
-              className="form-control"
-              value={formData.description}
-              onChange={handleInputChange}
-              placeholder="Tell us about your services..."
-              required
-            />
-          </div>
+            {/* Specialization */}
+            <div className="mb-3">
+              <label>Specialization</label>
+              <input
+                type="text"
+                name="specialization"
+                className="form-control"
+                value={formData.specialization}
+                onChange={handleInputChange}
+                placeholder="e.g. Plumber, Web Developer..."
+                required
+              />
+            </div>
 
-          {/* Location Address */}
-          <div className="mb-3">
-            <label>Location Address</label>
-            <input
-              type="text"
-              name="locationAddress"
-              className="form-control"
-              value={formData.location.address}
-              onChange={handleInputChange}
-              placeholder="e.g. Paris, France"
-              required
-            />
-            {!isLocationValid && (
-              <div className="text-danger">Invalid or outside Île-de-France.</div>
-            )}
-            {/* If lat/lng are found, show them */}
-            {formData.location.lat && formData.location.lng && (
-              <p className="mt-1">
-                Lat: {formData.location.lat} | Lng: {formData.location.lng}
-              </p>
-            )}
-          </div>
+            {/* Hourly Rate */}
+            <div className="mb-3">
+              <label>Hourly Rate (€)</label>
+              <input
+                type="number"
+                name="hourlyRate"
+                className="form-control"
+                value={formData.hourlyRate}
+                onChange={handleInputChange}
+                placeholder="e.g. 50"
+                required
+              />
+            </div>
 
-          {/* SIRET (optional) */}
-          <div className="mb-3">
-            <label>SIRET (14 digits, optional)</label>
-            <input
-              type="text"
-              name="siret"
-              className="form-control"
-              value={formData.siret}
-              onChange={handleInputChange}
-              placeholder="e.g. 12345678901234"
-            />
-            {siretValidationStatus && !siretValidationStatus.valid && (
-              <div className="text-danger">{siretValidationStatus.message}</div>
-            )}
-          </div>
+            {/* Description */}
+            <div className="mb-3">
+              <label>Description</label>
+              <textarea
+                name="description"
+                className="form-control"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Tell us about your services..."
+                required
+              />
+            </div>
 
-          <button className="btn btn-success" onClick={handleSaveFull}>
-            Save Profile
-          </button>
-        </div>
-      )}
-    </div>
+            {/* Location Address */}
+            <div className="mb-3">
+              <label>Location Address</label>
+              <input
+                type="text"
+                name="locationAddress"
+                className="form-control"
+                value={formData.location.address}
+                onChange={handleInputChange}
+                placeholder="e.g. Paris, France"
+                required
+              />
+              {!isLocationValid && (
+                <div className="text-danger">
+                  Invalid or outside Île-de-France.
+                </div>
+              )}
+              {/* If lat/lng are found, show them */}
+              {formData.location.lat && formData.location.lng && (
+                <p className="mt-1">
+                  Lat: {formData.location.lat} | Lng: {formData.location.lng}
+                </p>
+              )}
+            </div>
+
+            {/* SIRET (optional) */}
+            <div className="mb-3">
+              <label>SIRET (14 digits, optional)</label>
+              <input
+                type="text"
+                name="siret"
+                className="form-control"
+                value={formData.siret}
+                onChange={handleInputChange}
+                placeholder="e.g. 12345678901234"
+              />
+              {siretValidationStatus && !siretValidationStatus.valid && (
+                <div className="text-danger">
+                  {siretValidationStatus.message}
+                </div>
+              )}
+            </div>
+
+            <button className="btn btn-success" onClick={handleSaveFull}>
+              Save Profile
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 

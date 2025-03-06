@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Dashboard from "./pages/Dashboard";
@@ -9,6 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute"; // Import the Protecte
 import CallUser from "./components/CallUser";
 import IncomingCall from "./components/IncommingCall";
 import JitsiRoom from "./components/CallingViewer";
+import ResultsPage from "./pages/ResultsPage";
 
 function App() {
   return (
@@ -19,11 +25,15 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-
-          <Route path="/call" element={
-            <ProtectedRoute>
-              <CallUser userId="4GMedOrsMzRKhCZiAAAf" />
-            </ProtectedRoute>} />
+          <Route path="/results" element={<ResultsPage />} />
+          <Route
+            path="/call"
+            element={
+              <ProtectedRoute>
+                <CallUser userId="9UIodp1c6bLtfDz-AAAF" />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/incoming-call" element={<IncomingCall />} />
           <Route path="/room/:roomId" element={<JitsiRoom />} />
 

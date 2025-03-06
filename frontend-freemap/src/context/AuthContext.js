@@ -1,6 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../firebase/firebaseConfig";
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 export const AuthContext = createContext();
 
@@ -11,7 +16,11 @@ export const AuthProvider = ({ children }) => {
   // Sign in function
   const signIn = async (email, password) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
       const token = await userCredential.user.getIdToken();
 
       const userData = {
@@ -30,7 +39,11 @@ export const AuthProvider = ({ children }) => {
   // Sign up function
   const signUp = async (email, password) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
       const token = await userCredential.user.getIdToken();
 
       const userData = {
@@ -78,7 +91,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, signIn, signUp, signOut: signOutUser, loading }}>
+    <AuthContext.Provider
+      value={{ currentUser, signIn, signUp, signOut: signOutUser, loading }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );

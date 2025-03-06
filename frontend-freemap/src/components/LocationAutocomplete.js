@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 function LocationAutocomplete({
   initialAddress = "",
   onSelectLocation,
-  countryCode = "fr"
+  countryCode = "fr",
 }) {
   const [query, setQuery] = useState(initialAddress);
   const [suggestions, setSuggestions] = useState([]);
@@ -27,7 +27,7 @@ function LocationAutocomplete({
         // Nominatim with bounding box, limit=5
         // This might skip partial matches that don't strictly appear in bounding results
         const url = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=${countryCode}${ILE_DE_FRANCE_PARAMS}&limit=5&q=${encodeURIComponent(
-          query
+          query,
         )}`;
         const res = await fetch(url);
         const data = await res.json();
@@ -43,6 +43,7 @@ function LocationAutocomplete({
   }, [query, countryCode]);
 
   const handleSelectSuggestion = (place) => {
+    console.log("Selected place:", place);
     const lat = parseFloat(place.lat);
     const lon = parseFloat(place.lon);
     const address = place.display_name;
@@ -73,7 +74,7 @@ function LocationAutocomplete({
             position: "absolute",
             zIndex: 1000,
             width: "100%",
-            top: "38px"
+            top: "38px",
           }}
         >
           {suggestions.map((sug) => (
