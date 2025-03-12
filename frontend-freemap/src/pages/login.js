@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import logo from './logo.png';
+import logo from './img/logo.png';
+import { Link } from "react-router-dom";
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,9 +45,12 @@ const Login = () => {
             Candidats, étudiants et professeurs, accédez aux services et outils 
             Augustin Ruinard grâce à votre compte.
           </p>
-          <Button variant="light" className="bg-primary border-2 text-white  fw-bold mt-3">
-            Créer votre compte
+          <Link to="/signup" className="bg-color-white">
+          <Button variant="light" className="bg-primary-btn1 border-2 text-white  fw-bold mt-3">
+          Créer votre compte
           </Button>
+          </Link>
+
         </Col>
 
         {/* Right side (form) */}
@@ -82,10 +87,12 @@ const Login = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="bg-primary w-100 " disabled={isLoading}>
+          <Link to="/HomePage" className="bg-color-white">
+            <Button variant="primary" type="submit" className="bg-primary-btn w-100 " disabled={isLoading}>
               {isLoading ? 'Chargement...' : 'Connexion'}
             </Button>
-
+            </Link>
+          
             <p className="text-center mt-3">
               <a href="/forgot-password" className="text-primary fw-bold">Mot de passe oublié ?</a>
             </p>
@@ -98,4 +105,3 @@ const Login = () => {
 };
 
 export default Login;
-

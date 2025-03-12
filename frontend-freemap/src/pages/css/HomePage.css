@@ -1,0 +1,59 @@
+/* HomePage.css */
+.stage-revision-container {
+    display: flex;
+    flex-direction: column; /* Stack image and text vertically on smaller screens */
+    align-items: center; /* Center items horizontally */
+    margin-bottom: 2rem;
+  }
+  
+  .stage-revision-image {
+    width: 75%; /* Take up 75% of the container width */
+    margin-bottom: 1rem; /* Add some space between the image and text on smaller screens */
+  }
+  
+  .stage-revision-text {
+    text-align: center; /* Center the text */
+  }
+  
+  /* Media query for larger screens */
+  @media (min-width: 768px) {
+    .stage-revision-container {
+      flex-direction: row; /* Display image and text in a row on larger screens */
+      text-align: left; /* Align text to the left */
+    }
+  
+    .stage-revision-image {
+      width: 50%; /* Adjust image width for larger screens */
+      margin-right: 1rem; /* Add space between image and text */
+      margin-bottom: 0; /* Remove bottom margin */
+    }
+  
+    .stage-revision-text {
+      width: 50%; /* Adjust text width for larger screens */
+      text-align: left;
+    }
+  }
+  /* .btn-outline-primary{ */
+    
+/* element.style {
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+} */
+.btn-outline-primary-test{
+    --bs-btn-color: #238FB7!important;
+    --bs-btn-border-color: #238FB7!important;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #238FB7!important;
+    --bs-btn-hover-border-color: #238FB7!important;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #238FB7!important;
+    --bs-btn-active-border-color: #238FB7!important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #238FB7!important;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #238FB7!important;
+    --bs-gradient: none;
+}
+  

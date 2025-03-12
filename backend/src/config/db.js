@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//src/config/db.js
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const mongoose = require("mongoose");
 
 // Function to connect to MongoDB
@@ -7,6 +11,12 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+<<<<<<< HEAD
+=======
+      serverSelectionTimeoutMS: 5000, // Prevents indefinite hanging if DB is unreachable
+      socketTimeoutMS: 45000, // Closes connection if inactive
+
+>>>>>>> origin/1-featuresloginandsignupfrontend
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);

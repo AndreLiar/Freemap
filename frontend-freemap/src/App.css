@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -28,17 +29,17 @@
   color: #61dafb;
 }
 
-.bg-primary {
+.bg-primary  {
   --bs-bg-opacity: 1;
   background-color: #238FB7 !important;
+  cursor: pointer;
+  transition: opacity 0.3s;
 }
-/* .groundback{
-  background-image:url("The_Best_Free_Presentation_Icons_For_Your_Project___GraphicMama.jpg") ;
-  background-size: 15%;
-  background-position: center;
-  opacity: 0.7;
-  z-index: -1;
-} */
+.bg-primary:hover
+{
+  background-color: green;
+}
+
 .groundback {
   position: relative;
   z-index: 1;
@@ -115,4 +116,111 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.bg-primary-btn  {
+  background-color: #238FB7!important;
+  cursor: pointer!important;
+  transition: opacity 0.3s
+  !important;
+  border-color: transparent;
+}
+.bg-primary-btn:hover
+{
+  color: #238FB7 !important;
+  background-color: white !important;
+  border-color: #238FB7 !important;
+}
+
+
+.bg-primary-btn1  {
+  background-color: #238FB7!important;
+  cursor: pointer!important;
+  transition: opacity 0.3s
+  !important;
+  /* border-color: transparent; */
+}
+.bg-primary-btn1:hover
+{
+  color: #238FB7 !important;
+  background-color: white  !important;
+  border-color: #238FB7 !important;
+}
+
+.bg-primary-btn1 link {
+  color:transparent
+}
+
+.bg-primary-btn3  {
+  background-color: white!important;
+  color:#238FB7 ;
+  cursor: pointer!important;
+  transition: opacity 0.3s
+  !important;
+  /* border-color: #238FB7 ; */
+  border-color: #238FB7 ;
+  /* padding-right: 100px; */
+  /* margin-left:750px; */
+
+
+}
+
+.bg-primary-btn4  {
+  background-color: white!important;
+  color:#238FB7 ;
+  cursor: pointer!important;
+  transition: opacity 0.3s
+  !important;
+  /* border-color: #238FB7 ; */
+  border-color: #238FB7 ;
+  /* padding-right: 100px; */
+  /* margin-left:750px; */
+
+
+}
+.bg-primary-btn3:hover
+{
+  color: white !important;
+  background-color:#238FB7  !important;
+  border-color: #238FB7 !important;
+}
+
+.bg-primary-btn1 link {
+  color:transparent
+}
+.bg-primary-btn2  {
+  background-color: #238FB7!important;
+  cursor: pointer!important;
+  transition: opacity 0.3s
+  !important;
+  border-color: transparent;
+  /* margin-right:750px; */
+}
+.bg-primary-btn2:hover
+{
+  color: #238FB7 !important;
+  background-color: white !important;
+  border-color: #238FB7 !important;
+}
+
+.linkbutton{
+  gap: 20px;
+    position: absolute;
+    right: 50px; 
+    /* top: 20px;  */
+}
+
+.logoconfig {
+  display: flex;
+  /* align-items: center; */
+  margin-right: 20px; /* Déplace l'image plus à gauche */
+  width: 500px; /* Augmente la taille de l'image */
+  height: auto;
+
+}
+
+.stage-revision-image {
+  height: auto;
+  /* margin-right: 20px;  */
 }

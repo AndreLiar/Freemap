@@ -1,18 +1,39 @@
+<<<<<<< HEAD
 const { getProfile, updateProfileField, saveProfile ,getProfilesNearby } = require("../services/profileService");
+=======
+//src/controllers/profileController.js
+const { getProfile, updateProfileField, saveProfile , getProfilesInIleDeFrance} = require("../services/profileService");
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const cloudinary = require("../config/cloudinary");
 
 // Fetch the user's profile
 const getProfileController = async (req, res) => {
   try {
     const profile = await getProfile(req.uid);
+<<<<<<< HEAD
     res.status(200).json(profile);
   } catch (error) {
+=======
+
+    // Handle missing profile
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found. Please create a profile first." });
+    }
+
+    // Return the profile if it exists
+    res.status(200).json(profile);
+  } catch (error) {
+    // Handle other errors
+>>>>>>> origin/1-featuresloginandsignupfrontend
     res.status(404).json({ message: error.message });
   }
 };
 
 // Create or update the user's profile
+<<<<<<< HEAD
 // Create or update the user's profile
+=======
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const saveProfileController = async (req, res) => {
   const { 
     name, 
@@ -84,6 +105,7 @@ const updateProfileFieldController = async (req, res) => {
 };
 
 
+<<<<<<< HEAD
 const getProfilesNearbyController = async (req, res) => {
   const { lat, lng, radius } = req.query; // Accept latitude, longitude, and radius
 
@@ -99,6 +121,8 @@ const getProfilesNearbyController = async (req, res) => {
   }
 };
 
+=======
+>>>>>>> origin/1-featuresloginandsignupfrontend
 // New controller for uploading a profile photo
 const uploadProfilePhotoController = async (req, res) => {
   try {
@@ -130,11 +154,51 @@ const uploadProfilePhotoController = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+/**
+ * Controller: Get all profiles inside Île-de-France (Public)
+ */
+const getProfilesInIleDeFranceController = async (req, res) => {
+  try {
+    // Extract optional query params
+    const { specialization, certified, limit, skip } = req.query;
+
+    // Build the query filters
+    const query = {};
+
+    // Handle multiple specializations
+    if (specialization) {
+      query.specialization = { $in: specialization.split(",") }; // Split by comma and use $in for multiple values
+    }
+
+    // Handle certified filter
+    if (certified === "true") {
+      query.certified = true;
+    }
+
+    // Fetch profiles with filters
+    const profiles = await getProfilesInIleDeFrance(query, limit, skip);
+
+    // Return the results
+    res.status(200).json(profiles);
+  } catch (error) {
+    console.error("Error fetching Île-de-France profiles:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+>>>>>>> origin/1-featuresloginandsignupfrontend
 
 module.exports = {
   getProfileController,
   saveProfileController,
   updateProfileFieldController,
+<<<<<<< HEAD
   getProfilesNearbyController,
   uploadProfilePhotoController, // add the new controller to exports
+=======
+  uploadProfilePhotoController, // add the new controller to exports
+  getProfilesInIleDeFranceController,
+>>>>>>> origin/1-featuresloginandsignupfrontend
 };

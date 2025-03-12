@@ -1,6 +1,9 @@
+
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import logo from "./logo.png"
+import logo from "./img/logo.png"
+import { Link } from "react-router-dom";
+
 const SignUpPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -50,11 +53,14 @@ const SignUpPage = () => {
               Rejoignez la communauté <strong>Freemap</strong>. <br />
               Créez votre compte pour accéder à tous nos services et outils.
             </p>
-            <Button variant="light" className="bg-primary border-2 text-white fw-bold mt-3">
+        <Link to="/login" className="bg-color-white">
+            <Button variant="light" className="bg-primary-btn1 border-2 text-white fw-bold mt-3">
               Se connecter
             </Button>
-          </Col>
+        </Link>
 
+          </Col>
+  
           {/* Right side (form) */}
           <Col xs={12} md={8} className="bg-white p-4 p-md-5">
             <h2 className="text-primary fw-bold text-center mb-4">Créer un compte</h2>
@@ -118,10 +124,12 @@ const SignUpPage = () => {
                   {errors.confirmPassword}
                 </Form.Control.Feedback>
               </Form.Group>
-
-              <Button variant="primary" type="submit" className="bg-primary w-100" disabled={isLoading}>
+        <Link to="" className="bg-color-white">
+              <Button variant="primary" type="submit" className="bg-primary-btn w-100" disabled={isLoading}>
                 {isLoading ? 'Chargement...' : 'Créer un compte'}
-              </Button>
+                </Button>
+          </Link>
+          
             </Form>
           </Col>
         </Row>

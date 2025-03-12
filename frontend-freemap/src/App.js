@@ -1,7 +1,8 @@
+
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
-import Signin from "./pages/login";
+import Login from "./pages/login";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
@@ -19,7 +20,7 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/HomePage" element={<HomePage />} />
           

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//src/repositories/profileRepository.js
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const UserProfile = require("../models/UserProfile");
 
 const findProfileByUID = async (uid) => {

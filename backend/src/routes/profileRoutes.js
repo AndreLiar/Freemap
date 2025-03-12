@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//src/routes/profileRoutes.js
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const express = require("express");
 const {
   getProfileController,
@@ -5,11 +9,26 @@ const {
   updateProfileFieldController,
     getProfilesNearbyController,
     uploadProfilePhotoController,
+<<<<<<< HEAD
 
 } = require("../controllers/profileController");
 const multer = require("multer");
 
 const { verifyToken } = require("../middlewares/authMiddleware");
+=======
+    getProfilesInIleDeFranceController,
+
+} = require("../controllers/profileController");
+const multer = require("multer");
+const { verifyToken } = require("../middlewares/authMiddleware");
+const rateLimit = require("express-rate-limit");
+
+const searchLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 10, // Limit each IP to 10 requests per minute
+  message: { message: "Too many requests, please try again later." }
+});
+>>>>>>> origin/1-featuresloginandsignupfrontend
 
 
 
@@ -27,14 +46,23 @@ router.put("/me", verifyToken, saveProfileController);
 router.patch("/me", verifyToken, updateProfileFieldController);
 
 
+<<<<<<< HEAD
 // Route to fetch profiles near a specific location
 router.get("/nearby", verifyToken, getProfilesNearbyController);
 
 
+=======
+>>>>>>> origin/1-featuresloginandsignupfrontend
 // New route to upload a profile photo
 router.post("/me/photo", verifyToken, upload.single("photo"), (req, res, next) => {
     console.log("Reached /me/photo route");
     next();
   }, uploadProfilePhotoController);
+<<<<<<< HEAD
+=======
+
+  // Public route: Get all profiles in Île-de-France (accessible to everyone)
+router.get("/ile-de-france", searchLimiter, getProfilesInIleDeFranceController);
+>>>>>>> origin/1-featuresloginandsignupfrontend
   
   module.exports = router;

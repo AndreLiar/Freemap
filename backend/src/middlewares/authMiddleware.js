@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//src/middlewares/authMiddleware.js
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const admin = require("firebase-admin");
 
 // Middleware to verify Firebase token
@@ -10,7 +14,11 @@ const verifyToken = async (req, res, next) => {
     req.uid = decodedToken.uid; // Attach UID to the request
     next();
   } catch (error) {
+<<<<<<< HEAD
     return res.status(403).json({ message: "Invalid token" });
+=======
+    return res.status(403).json({ message: "Unauthorized: Invalid or expired token" });
+>>>>>>> origin/1-featuresloginandsignupfrontend
   }
 };
 

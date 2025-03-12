@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { findProfileByUID, createOrUpdateProfile } = require("../repositories/profileRepository");
 const UserProfile = require("../models/UserProfile");
 
@@ -7,6 +8,30 @@ const getProfile = async (uid) => {
   return profile;
 };
 
+=======
+//src/services/profileService.js
+const { findProfileByUID, createOrUpdateProfile } = require("../repositories/profileRepository");
+const UserProfile = require("../models/UserProfile");
+
+
+// Bounding box for Île-de-France (approximate)
+const ILE_DE_FRANCE_BOUNDS = {
+  minLat: 48.0,
+  maxLat: 49.2,
+  minLng: 1.4,
+  maxLng: 3.4,
+};
+
+// services/profileService.js
+const getProfile = async (uid) => {
+  const profile = await findProfileByUID(uid);
+  // Old: if (!profile) throw new Error("Profile not found");
+  // New: simply return `null` if not found
+  return profile; 
+};
+
+
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const saveProfile = async (uid, profileData) => {
   if (profileData.siret && /^\d{14}$/.test(profileData.siret)) {
     profileData.certified = true; // Mark as certified if SIRET is valid
@@ -53,6 +78,7 @@ const updateProfileField = async (uid, updates) => {
 };
 
 
+<<<<<<< HEAD
 const getProfilesNearby = async (lat, lng, radius) => {
   const profiles = await UserProfile.find({
     "location.lat": { $gte: lat - radius, $lte: lat + radius },
@@ -62,3 +88,32 @@ const getProfilesNearby = async (lat, lng, radius) => {
 };
 
 module.exports = { getProfile, saveProfile, updateProfileField ,getProfilesNearby};
+=======
+/**
+ * Fetch all profiles inside Île-de-France, with optional filters.
+ */
+const getProfilesInIleDeFrance = async (filters = {}) => {
+  const query = {
+    "location.lat": { $gte: ILE_DE_FRANCE_BOUNDS.minLat, $lte: ILE_DE_FRANCE_BOUNDS.maxLat },
+    "location.lng": { $gte: ILE_DE_FRANCE_BOUNDS.minLng, $lte: ILE_DE_FRANCE_BOUNDS.maxLng },
+  };
+
+  // Optional: Filter by specialization if provided
+  if (filters.specialization) {
+    query.specialization = { $regex: filters.specialization, $options: "i" }; // Case-insensitive
+  }
+
+  // Optional: Certified profiles only
+  if (filters.certifiedOnly) {
+    query.certified = true;
+  }
+
+  // Optional: Pagination (limit & skip)
+  const limit = filters.limit ? parseInt(filters.limit) : 20; // Default: 20 results
+  const skip = filters.skip ? parseInt(filters.skip) : 0;
+
+  return await UserProfile.find(query).limit(limit).skip(skip);
+};
+
+module.exports = { getProfile, saveProfile, updateProfileField , getProfilesInIleDeFrance};
+>>>>>>> origin/1-featuresloginandsignupfrontend

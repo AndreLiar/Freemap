@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//src/models/UserProfile.js
+>>>>>>> origin/1-featuresloginandsignupfrontend
 const mongoose = require("mongoose");
 
 const UserProfileSchema = new mongoose.Schema({
@@ -8,8 +12,13 @@ const UserProfileSchema = new mongoose.Schema({
   description: { type: String, required: true },
   location: {
     address: { type: String, required: false }, // store the user’s string
+<<<<<<< HEAD
     lat: { type: Number, required: false },
     lng: { type: Number, required: false },
+=======
+    lat: { type: Number, required: false , index: true},
+    lng: { type: Number, required: false , index: true},
+>>>>>>> origin/1-featuresloginandsignupfrontend
   },
   // New field for storing the Cloudinary URL of the profile photo
   profilePhoto: { type: String, required: false },
