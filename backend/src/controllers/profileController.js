@@ -129,14 +129,18 @@ const uploadProfilePhotoController = async (req, res) => {
 const getProfilesInIleDeFranceController = async (req, res) => {
   try {
     // Extract optional query params
-    const { specialization, certified, limit, skip } = req.query;
+    const { specialization, certified, limit, skip, departement } = req.query;
+    console.log("Specialization:", req.query);
 
     // Build the query filters
     const query = {};
 
     // Handle multiple specializations
     if (specialization) {
-      query.specialization = { $in: specialization.split(",") }; // Split by comma and use $in for multiple values
+      query.specialization = specialization.split(" ") ; // Split by comma and use $in for multiple values
+    }
+    if (departement) {
+      query.departement = departement;
     }
 
     // Handle certified filter
