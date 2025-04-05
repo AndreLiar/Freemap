@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import api from "../services/apiService";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBar({ setResults }) {
   
   const [departement, setDepartement] = useState("");
   const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
   const handleChange = async (e) => {
     console.log(e.target.value);
     setSearchText(e.target.value); // Met à jour l'état avec la valeur de l'input
@@ -23,12 +25,15 @@ export default function SearchBar({ setResults }) {
       // console.log(result.data);
       // isResults=result.data;
       setResults(result.data);
+      const data=result.data;
+      navigate("/results", { state: { data } });
     }
     return;
   };
   return (
-    <div className="searchBar  p-5 ">
-      <div className="container bg-white p-3 rounded">
+    <div className="searchBar  p-5 h-100 ">
+      <h1 className="text-center text-white mb-3">Découvrez les meilleurs freelances sur notre plateforme</h1>
+      <div className="container bg-white p-3  rounded">
         <div className=" row  ">
           <div className="col-5">
             <input

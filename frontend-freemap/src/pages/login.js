@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import logo from './logo.png';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { signIn } = useContext(AuthContext);
+  const from = location.state?.from?.pathname || "/dashboard"; // Redirect back to the requested page
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setIsLoading(true);
 
     // Validation
     const newErrors = {};
+    try {
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = 'Email invalide';
     }
@@ -25,11 +33,17 @@ const Login = () => {
       setIsLoading(false);
       return;
     }
-
+    
+      await signIn(email, password); // Use the signIn function from context
+      navigate(from, { replace: true }); // Redirect to the original page
+    } catch (error) {
+      alert(error.message); // Handle errors
+    }
     // Appel API pour la connexion (par exemple, via Redux ou context)
     // dispatch(loginUser(email, password)); // à intégrer selon ton store Redux ou context API
   };
 
+ 
   return (
     <Container fluid className="groundback">
     <Container fluid className="vh-100 d-flex align-items-center justify-content-center p-3">

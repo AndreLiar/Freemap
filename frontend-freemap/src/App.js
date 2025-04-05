@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Signup from "./pages/Signup";
-import Signin from "./pages/Signin";
+
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile"; // Import the Profile page
 import LandingPage from "./pages/LandingPage";
@@ -17,10 +17,10 @@ import IncomingCall from "./components/IncommingCall";
 import JitsiRoom from "./components/CallingViewer";
 import ResultsPage from "./pages/ResultsPage";
 import { ToastContainer } from "react-toastify";
-import Signin from "./pages/login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css"
 import HomePage from "./pages/HomePage";
+import Login from "./pages/login";
 
 function App() {
   return (
@@ -28,8 +28,8 @@ function App() {
       <Router>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/results" element={<ResultsPage />} />
           {/* <Route
@@ -40,7 +40,7 @@ function App() {
           /> */}
           <Route path="/incoming-call" element={<IncomingCall />} />
           <Route path="/room/:roomId" element={<JitsiRoom />} />
-           <Route path="/HomePage" element={<HomePage />} />
+           <Route path="/home" element={<HomePage />} />
 
           {/* Protected Routes */}
           <Route

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import logo from "./logo.png"
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 const SignUpPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -8,11 +10,12 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const { signUp } = useContext(AuthContext);
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    try {
     // Validation
     const newErrors = {};
     if (!name) {
@@ -33,7 +36,13 @@ const SignUpPage = () => {
       setIsLoading(false);
       return;
     }
-
+    
+      await signUp(email, password); // Use the signUp function from context
+      alert("Account created successfully! Default role: freelance");
+      navigate("/signin"); // Redirect to the sign-in page
+    } catch (error) {
+      alert(error.message); // Handle errors
+    }
     // Appel API pour l'inscription (par exemple, via Redux ou context)
     // dispatch(registerUser(name, email, password)); // à intégrer selon ton store Redux ou context API
   };
