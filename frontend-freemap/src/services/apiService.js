@@ -54,6 +54,20 @@ export const updateProfileField = async (field, value, navigate) => {
     return handleApiError(error, navigate);
   }
 };
+// Create a new room for video calling
+export const createRoom = async () => {
+  try {
+    const token = await getAuthToken();
+    const data =await api.post(
+      "/visio-calling/create-room",
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return data;
+  } catch (error) {
+    console.error("Error creating room:", error.response?.data || error.message);
+    return error;
+  }
+};
 
 // Upload profile photo
 export const uploadProfilePhoto = async (file, navigate) => {

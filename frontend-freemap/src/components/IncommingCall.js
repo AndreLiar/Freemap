@@ -1,34 +1,41 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import socket from "../services/socket";
 // import { useNavigate } from "react-router-dom";
-
 const JitsiRoom = () => {
   const [callInfo, setCallInfo] = useState(null);
+  const userId = JSON.parse(localStorage.getItem("user")).userId;
   // const navigate = useNavigate();
 
   useEffect(() => {
-    socket.on("incoming-call", ({ from, roomId }) => {
-      setCallInfo({ from, roomId });
-    });
-
-    return () => socket.off("incoming-call");
-  }, []);
-
-  return (
-    <div>
-      {callInfo && (
-        <div>
-          <p>📞 Appel entrant de {callInfo.from}</p>
+    socket.on(`notification-${userId}`, (notification) => {
+      toast.info(
+        <div className="custom-toast">
+          <h4>📞 Appel entrant de {notification.from}</h4>
+          <p>{notification.message}</p>
           <a
-            href={`https://meet.jit.si/${callInfo.roomId}`}
+            target="_blank"
+            href={notification.link}
             className="btn btn-success"
           >
             Accepter
           </a>
-        </div>
-      )}
-    </div>
-  );
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
+    });
+
+    return () => socket.off(`notification-${userId}`);
+  }, []);
+
 };
 
 export default JitsiRoom;

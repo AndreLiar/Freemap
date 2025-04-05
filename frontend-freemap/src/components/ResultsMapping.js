@@ -1,10 +1,10 @@
 // src/components/LocationMap.jsx
 
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-
+import UserProfileView from "./UserProfileView";
 // Fix default Marker icon paths in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -20,12 +20,14 @@ L.Icon.Default.mergeOptions({
  * - Places a marker and popup for the address
  */
 function ResultsMapping({ results }) {
+  const [selectedResult, setSelectedResult] = useState(null);
   return (
     <div className="mt-3 container">
       <MapContainer
+        className="vw-75 vh-75 "
         center={[48.8566, 2.3522]}
         zoom={13}
-        style={{ height: "300px", width: "100%" }}
+        style={{ height: "600px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -33,9 +35,21 @@ function ResultsMapping({ results }) {
         />
         {results.map((result) => (
           <Marker position={[result.location.lat, result.location.lng]}>
-            <Popup>{result.location.address}</Popup>
+            <Popup  >
+              <img src={result.profilePhoto} class="card-img-top  h-50" alt="..." />
+              <p className="card-text">
+                <h5 className=" text-primary">{result.specialization}</h5>
+                {result.hourlyRate} €/h
+              </p>
+              <button type="button" 
+              onClick={() => setSelectedResult(result)}
+              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profilModal">
+                Voir le profile
+              </button>
+            </Popup>
           </Marker>
         ))}
+        {selectedResult && (<UserProfileView result={selectedResult} />)}
         {/* <Marker position={[lat, lng]}>
           <Popup>{address}</Popup>
         </Marker> */}

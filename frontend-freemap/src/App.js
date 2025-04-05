@@ -16,6 +16,7 @@ import CallUser from "./components/CallUser";
 import IncomingCall from "./components/IncommingCall";
 import JitsiRoom from "./components/CallingViewer";
 import ResultsPage from "./pages/ResultsPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -27,14 +28,12 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/results" element={<ResultsPage />} />
-          <Route
+          {/* <Route
             path="/call"
             element={
-              <ProtectedRoute>
-                <CallUser userId="9UIodp1c6bLtfDz-AAAF" />
-              </ProtectedRoute>
+                <CallUser  />
             }
-          />
+          /> */}
           <Route path="/incoming-call" element={<IncomingCall />} />
           <Route path="/room/:roomId" element={<JitsiRoom />} />
 
@@ -60,6 +59,19 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" 
+        />
+          <IncomingCall />
     </AuthProvider>
   );
 }

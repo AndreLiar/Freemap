@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import socket from "../services/socket";
 
 export const AuthContext = createContext();
 
@@ -24,8 +25,10 @@ export const AuthProvider = ({ children }) => {
         password,
       );
       const token = await userCredential.user.getIdToken();
-
+      const userId = await userCredential.user.uid ; // Remplace par l'ID réel de l'utilisateur
+    
       const userData = {
+        userId: userId,
         email: userCredential.user.email,
         token: token,
         role: JSON.parse(localStorage.getItem("user"))?.role || "freelance",
