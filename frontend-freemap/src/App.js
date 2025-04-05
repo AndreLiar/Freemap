@@ -17,6 +17,10 @@ import IncomingCall from "./components/IncommingCall";
 import JitsiRoom from "./components/CallingViewer";
 import ResultsPage from "./pages/ResultsPage";
 import { ToastContainer } from "react-toastify";
+import Signin from "./pages/login";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css"
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -36,6 +40,7 @@ function App() {
           /> */}
           <Route path="/incoming-call" element={<IncomingCall />} />
           <Route path="/room/:roomId" element={<JitsiRoom />} />
+           <Route path="/HomePage" element={<HomePage />} />
 
           {/* Protected Routes */}
           <Route
@@ -77,4 +82,3 @@ function App() {
 }
 
 export default App;
-
