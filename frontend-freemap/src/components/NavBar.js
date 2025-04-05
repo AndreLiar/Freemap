@@ -34,12 +34,12 @@ const NavBar = ({ currentUser, onSignOut }) => {
       {/* Right Side: User Icon + Dropdown */}
       {!currentUser ? 
         (<div>
-              <Link to="/signin" className="btn btn-outline-primary  me-4">
-                Connexion
-              </Link>
-              <Link to="/signup" className="btn btn-primary">
-                Inscription
-              </Link>
+          <Link to="/signin" className="btn btn-outline-primary  me-4">
+            Connexion
+          </Link>
+          <Link to="/signup" className="btn btn-primary">
+            Inscription
+          </Link>
         </div>):(<div className="position-relative">
         <FiUser
           size={28}
@@ -67,11 +67,11 @@ const NavBar = ({ currentUser, onSignOut }) => {
               <FaSignOutAlt className="me-2" />
               Sign Out
             </button>
-            </div>
-          )}
+          </div>
+        )}
         </div>)
         }
-      </nav>
+    </nav>
   );
 };
 
