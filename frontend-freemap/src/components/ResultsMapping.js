@@ -24,13 +24,26 @@ L.Icon.Default.mergeOptions({
 function ResultsMapping({ results }) {
   const [selectedResult, setSelectedResult] = useState(null);
   useEffect(() => {
+    const modalElement = document.getElementById('profilModal');
+    if (!modalElement) return;
+
+    const bootstrapModal = Modal.getOrCreateInstance(modalElement);
+
     if (selectedResult) {
-      const modalElement = document.getElementById('profilModal');
-      if (modalElement) {
-        const modalBootstrap = Modal.getOrCreateInstance(modalElement);
-        modalBootstrap.show();
-      }
+      bootstrapModal.show();
     }
+
+    // 👉 Ajout : écouter quand le modal se ferme
+    const handleModalHide = () => {
+      setSelectedResult(null);
+    };
+
+    modalElement.addEventListener('hide.bs.modal', handleModalHide);
+
+    // 👉 Clean up pour éviter des problèmes
+    return () => {
+      modalElement.removeEventListener('hide.bs.modal', handleModalHide);
+    };
   }, [selectedResult]);
   return (
     <div className="mt-3 container">
