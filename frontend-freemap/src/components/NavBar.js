@@ -16,10 +16,7 @@ const NavBar = ({ currentUser, onSignOut }) => {
   };
 
   return (
-    /**
-     * Example of a cleaner, white navbar with teal text for brand name:
-     * - "navbar-light bg-white border-bottom" for a simple white background
-     */
+    
     <nav className="navbar navbar-light bg-white border-bottom shadow-sm px-3 d-flex justify-content-between">
       {/* Left Side: Logo + Brand */}
       <div className="d-flex align-items-center">
