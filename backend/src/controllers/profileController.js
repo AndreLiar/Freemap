@@ -152,7 +152,13 @@ const getProfilesInIleDeFranceController = async (req, res) => {
     const profiles = await getProfilesInIleDeFrance(query, limit, skip);
 
     // Return the results
-    res.status(200).json(profiles);
+    if(profiles.length==0){
+
+      res.status(200).json("Aucun résultat trouvé pour cette recherche.");
+    }else {
+      res.status(200).json(profiles);
+
+    }
   } catch (error) {
     console.error("Error fetching Île-de-France profiles:", error);
     res.status(500).json({ message: "Server error", error });

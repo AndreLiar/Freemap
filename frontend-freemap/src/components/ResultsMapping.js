@@ -1,6 +1,7 @@
 // src/components/LocationMap.jsx
 
-import React, { useState } from "react";
+import React, {  useState } from "react";
+import illustrationNotFound from "../assets/notFound.png"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -21,8 +22,18 @@ L.Icon.Default.mergeOptions({
  */
 function ResultsMapping({ results }) {
   const [selectedResult, setSelectedResult] = useState(null);
+
   return (
     <div className="mt-3 container">
+      {typeof(results)==="string" ? (
+        <div className="text-center">
+          <img src={illustrationNotFound} className="w-25 h-25" alt="..."></img>
+          <p>
+         {results}
+
+          </p>
+        </div>
+      ):(
       <MapContainer
         className="vw-75 vh-75 "
         center={[48.8566, 2.3522]}
@@ -49,11 +60,11 @@ function ResultsMapping({ results }) {
             </Popup>
           </Marker>
         ))}
-        {selectedResult && (<UserProfileView result={selectedResult} />)}
         {/* <Marker position={[lat, lng]}>
           <Popup>{address}</Popup>
-        </Marker> */}
-      </MapContainer>
+          </Marker> */}
+      </MapContainer>)}
+          {selectedResult && (<UserProfileView result={selectedResult} />)}
     </div>
   );
 }

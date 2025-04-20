@@ -31,12 +31,13 @@ export default function ResultsPage() {
       />
       <SearchBar setResults={setResults} />
       {results.length ? (
-        <ResultsMapping results={results} />
+       <ResultsMapping results={results} />
       ) : (
         <div class="d-flex justify-content-center m-5">
           <div class="spinner-grow text-info text-center" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Loading... {results.length}</span>
           </div>
+            {results}
         </div>
       )}
     </section>
