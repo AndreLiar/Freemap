@@ -14,7 +14,7 @@ const MapCard = ({ lat, lng, address }) => {
           {address ? address : "Non spécifiée"}
         </p>
         {/* Only show the map if lat/lng are valid */}
-        <LocationMap lat={lat} lng={lng} address={address} />
+        <LocationMap lat={lat} lng={lng} address={address}/>
       </div>
     </div>
   );

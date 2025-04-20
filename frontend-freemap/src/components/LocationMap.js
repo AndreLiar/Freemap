@@ -1,7 +1,6 @@
 // src/components/LocationMap.jsx
-
-import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -14,32 +13,43 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png",
 });
 
+// 👇 Sub-component to fix sizing inside Bootstrap modals
+const ResizeFixer = () => {
+  const map = useMap();
+  useEffect(() => {
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 200); // allow time for modal to open
+  }, [map]);
+  return null;
+};
+
 /**
- * LocationMap
- * - Renders a Leaflet map if lat/lng exist
- * - Places a marker and popup for the address
+ * LocationMap Component
  */
 function LocationMap({ lat, lng, address }) {
-  if (!lat || !lng) {
-    return null; // No map if we have no valid coords
-  }
+  if (!lat || !lng) return null;
 
   return (
     <div className="mb-3">
-      <h5>Map Preview</h5>
-      <MapContainer
-        center={[lat, lng]}
-        zoom={13}
-        style={{ height: "300px", width: "100%" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
-        />
-        <Marker position={[lat, lng]}>
-          <Popup>{address}</Popup>
-        </Marker>
-      </MapContainer>
+      <h5 className="mb-2">Map Preview</h5>
+      <div className="w-100" style={{ height: "300px" }}>
+        <MapContainer
+          center={[lat, lng]}
+          zoom={13}
+          scrollWheelZoom={false}
+          style={{ height: "100%", width: "100%" }} // 🟢 critical for full sizing
+        >
+          <ResizeFixer />
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+          />
+          <Marker position={[lat, lng]}>
+            <Popup>{address}</Popup>
+          </Marker>
+        </MapContainer>
+      </div>
     </div>
   );
 }
