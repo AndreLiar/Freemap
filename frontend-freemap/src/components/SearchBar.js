@@ -67,9 +67,7 @@ export default function SearchBar({ setResults }) {
             </button>
           </div>
         </div>
-        <div>
-          <a href="#">Filtres</a>
-        </div>
+       
       </div>
     </div>
   );

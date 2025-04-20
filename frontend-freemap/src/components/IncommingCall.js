@@ -5,7 +5,10 @@ import socket from "../services/socket";
 // import { useNavigate } from "react-router-dom";
 const JitsiRoom = () => {
   const [callInfo, setCallInfo] = useState(null);
-  const userId = JSON.parse(localStorage.getItem("user")).userId;
+  const [userId,setUserId]= useState(null);
+  if (localStorage.getItem("user")){
+    setUserId(JSON.parse(localStorage.getItem("user")).userId)
+  }
   // const navigate = useNavigate();
 
   useEffect(() => {
