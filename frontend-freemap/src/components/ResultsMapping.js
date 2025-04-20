@@ -1,11 +1,12 @@
 // src/components/LocationMap.jsx
 
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import illustrationNotFound from "../assets/notFound.png"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import UserProfileView from "./UserProfileView";
+import { Modal } from "bootstrap";
 // Fix default Marker icon paths in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -22,15 +23,22 @@ L.Icon.Default.mergeOptions({
  */
 function ResultsMapping({ results }) {
   const [selectedResult, setSelectedResult] = useState(null);
-
+  useEffect(() => {
+    if (selectedResult) {
+      const modalElement = document.getElementById('profilModal');
+      if (modalElement) {
+        const modalBootstrap = Modal.getOrCreateInstance(modalElement);
+        modalBootstrap.show();
+      }
+    }
+  }, [selectedResult]);
   return (
     <div className="mt-3 container">
       {typeof(results)==="string" ? (
         <div className="text-center">
           <img src={illustrationNotFound} className="w-25 h-25" alt="..."></img>
           <p>
-         {results}
-
+              {results}
           </p>
         </div>
       ):(
@@ -54,7 +62,7 @@ function ResultsMapping({ results }) {
               </p>
               <button type="button" 
               onClick={() => setSelectedResult(result)}
-              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profilModal">
+              className="btn btn-primary" >
                 Voir le profile
               </button>
             </Popup>
