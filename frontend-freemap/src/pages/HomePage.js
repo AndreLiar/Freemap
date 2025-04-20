@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Row, Col, Form, Button, Navbar, Nav, Accordion } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import NavBar from '../components/NavBar';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from './img/logo.png';
 import logo2 from './img/logo2.png';
 import logo3 from './img/logo3.png';
 import './css/HomePage.css';
 import SearchBar from '../components/SearchBar';
+import { AuthContext } from '../context/AuthContext';
 
 const HomePage = () => {
   const [results, setResults] = useState([]);
+  const { currentUser, signOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate("/signin");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      alert("Failed to sign out. Please try again.");
+    }
+  };
   return (
     <div>
       {/* Navigation Bar */}
-      <NavBar />
+      <NavBar currentUser={currentUser} onSignOut={handleSignOut} />
 
       {/* Hero Section */}
       <div >
