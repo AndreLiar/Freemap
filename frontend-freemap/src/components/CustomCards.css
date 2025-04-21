@@ -1,0 +1,19 @@
+.feature-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(35, 143, 183, 0.10);
+  }
+  .feature-card:hover, .feature-card:focus {
+    animation: animate__pulse 0.7s;
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(35, 143, 183, 0.18);
+    outline: none;
+  }
+  
+  /* Pour utiliser animate__pulse sans importer toute animate.css : */
+  @keyframes animate__pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
+  
