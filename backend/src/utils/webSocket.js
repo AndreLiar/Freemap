@@ -1,24 +1,20 @@
 const { Server } = require("socket.io");
 const { link } = require("../routes/visioCallingRoutes");
 const { getProfile } = require("../services/profileService");
+const admin = require("firebase-admin");
+const {sendMailToUser} = require("../utils/mailSender");
+
 const users = {}; // Stocke { userId: socketId }
 const initSocket = (server) => {
     const io = new Server(server, { cors: { origin: "*" } });
 
     io.on("connection", (socket) => {
-        console.log("🔵 Utilisateur connecté :", socket.id);
         // Associer un userId à son socketId
         socket.on("register-user", (userId) => {
             users[userId] = socket.id;
-            console.log(`✅ Utilisateur ${userId} enregistré avec le socket ${socket.id}`);
         });
         socket.on("sendNotificationCalling", async ({ userId,senderId, roomId, message }) => {
-            console.log("📞 Appel entrant de", senderId);
-            // const user = await getProfile(senderId);
-            // if (user) {
-                //     console
-                //     userName = user.name;
-                // }
+            
                 try {
                     const user = await getProfile(senderId); // Attendre la récupération du profil
                     console.log("roomId", roomId);
@@ -29,7 +25,9 @@ const initSocket = (server) => {
                         from: userName,
                         link: `https://meet.jit.si/${roomId}`
                     };
-
+                    const userEmail = await admin.auth().getUser(userId);
+                    const senderEmail = await admin.auth().getUser(senderId);
+                    sendMailToUser(userEmail.email, senderEmail.email, roomId);
                     io.emit(`notification-${userId}`, notification);
                     
             } catch (error) {
