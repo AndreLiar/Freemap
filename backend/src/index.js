@@ -1,10 +1,10 @@
 //src/index.js
 require("dotenv").config();
 const serverless = require('serverless-http');
-const app = require("../app");
-const connectDB = require("../config/db");
+const app = require("./app");
+const connectDB = require("./config/db");
 const admin = require("firebase-admin");
-const initSocket = require("../utils/webSocket");
+const initSocket = require("./utils/webSocket");
 const http = require("http");
 
 // ✅ Firebase Admin Initialization via Base64 .env (no local JSON)
