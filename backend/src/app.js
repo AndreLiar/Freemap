@@ -3,8 +3,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors"); // Import the CORS middleware
-const profileRoutes = require("./routes/profileRoutes");
-const visioCallingRoutes = require("./routes/visioCallingRoutes");
+const profileRoutes = require("./routes/profileRoutes.js");
+const visioCallingRoutes = require("./routes/visioCallingRoutes.js");
 
 const app = express();
 
