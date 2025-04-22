@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faVideo, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import TrackVisibility from "react-on-screen";
 import "./CustomCards.css"; // Ajoute ce fichier CSS
-
+import { useNavigate } from "react-router-dom";
 export default function FeaturesCards() {
   // Pour la démo, tu peux remplacer les onClick par tes propres handlers/routes
   const handleFreelanceClick = () => alert("Créer mon profil gratuitement");
   const handleVisioClick = () => alert("Tester une démo visio");
   const handleIdfClick = () => alert("Voir les freelances autour de moi");
-
+      const navigate = useNavigate();
+  
   return (
     <section className="my-5">
       <TrackVisibility>
@@ -29,7 +30,8 @@ export default function FeaturesCards() {
                   Vous êtes freelance ?
                 </h3>
                 <p>Créez un profil et soyez visible instantanément par les clients près de chez vous.</p>
-                <Button variant="success">Créer mon profil gratuitement</Button>
+             <Button variant="primary" onClick={() => navigate('/Signup')}>Inscrivez-vous gratuitement</Button>
+                
               </div>
             </Col>
             {/* Carte 2 */}
@@ -46,6 +48,7 @@ export default function FeaturesCards() {
                 </h3>
                 <p>Plus besoin d'attendre, démarrez une visio en un clic avec les freelances disponibles.</p>
                 <Button variant="primary">Tester une démo visio</Button>
+                
               </div>
             </Col>
             {/* Carte 3 */}

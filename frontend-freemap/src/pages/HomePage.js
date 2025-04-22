@@ -9,8 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
 import { faInstagram, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import NavBar from '../components/NavBar';
-import logo from './img/raw2.png';
-import logo2 from './img/raw1.png';
+import logo from './img/logo.png';
+import logo2 from './img/Location_tracking-bro.png';
 import './css/HomePage.css';
 import SearchBar from '../components/SearchBar';
 import TrackVisibility from 'react-on-screen';
@@ -149,20 +149,24 @@ const HomePage = () => {
 
                     {/* 🔥 Nouvelle Section : Trouvez le freelance qu’il vous faut */}
 
+                <FeaturesCards />
+                    
+                    
+                    
                     <Col md={12} className="mt-4">
                         <TrackVisibility>
                             {({ isVisible }) =>
                                 <div className={`p-4 rounded shadow-sm bg-light text-center bounce-hover ${isVisible ? "animate__animated animate__pulse" : ""}`}>
                                     <h3><FontAwesomeIcon icon={faUsers} className="me-2" />Rejoignez-nous !</h3>
                                     <p>Que vous soyez un client à la recherche d'un freelance ou un professionnel souhaitant proposer vos services, FreeMap est fait pour vous !</p>
-                                    <Button variant="primary">Inscrivez-vous gratuitement</Button>
+                                    <Button variant="primary" onClick={() => navigate('/Signup')}>Inscrivez-vous gratuitement</Button>
+
                                 </div>
                             }
                         </TrackVisibility>
                     </Col>
                 </Row>
 
-                <FeaturesCards />
 
             </Container>
 
@@ -223,9 +227,9 @@ const HomePage = () => {
                         <Col md={3}>
                             <h5>Contact</h5>
                             <ul className="list-unstyled">
-                                <li><FontAwesomeIcon icon={faMapMarkerAlt} className="me-2" /> 64 Allée des Champs Elysées, 91080 Évry-Courcouronnes</li>
-                                <li><FontAwesomeIcon icon={faEnvelope} className="me-2" /> contact@augustinruinardacademie.com</li>
-                                <li><FontAwesomeIcon icon={faPhone} className="me-2" /> 01 85 78 76 67</li>
+                                {/* <li><FontAwesomeIcon icon={faMapMarkerAlt} className="me-2" /> 64 Allée des Champs Elysées, 91080 Évry-Courcouronnes</li> */}
+                                {/* <li><FontAwesomeIcon icon={faEnvelope} className="me-2" /> contact@augustinruinardacademie.com</li> */}
+                                {/* <li><FontAwesomeIcon icon={faPhone} className="me-2" /> 01 85 78 76 67</li> */}
                             </ul>
                         </Col>
                     </Row>
