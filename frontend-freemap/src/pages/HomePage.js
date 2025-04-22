@@ -87,7 +87,7 @@ const HomePage = () => {
                             {({ isVisible }) =>
                                 <div className={isVisible ? "animate__animated animate__fadeInRight" : ""} style={{ width: "100%" }}>
                                     <Row className="align-items-center">
-                                        <Col md={7}>
+                                        <Col md={7} className=' order-2 order-md-1 '>
                                             <h2 className="mb-4">
                                                 <FontAwesomeIcon icon={faLightbulb} className="me-2" />
                                                 Pourquoi rejoindre FreeMap ?
@@ -99,12 +99,12 @@ const HomePage = () => {
                                                 <li><b>Gratuit</b> : L'inscription et la recherche de freelances sont gratuites.</li>
                                             </ul>
                                         </Col>
-                                        <Col md={5} className="text-center">
+                                        <Col md={5} className="text-center order-1 order-md-2 ">
                                             <img
                                                 src={logo2}
                                                 alt="Pourquoi rejoindre FreeMap ?"
                                                 className="img-fluid"
-                                                style={{ maxHeight: '320px', width: '100%', objectFit: 'contain' }}
+                                                style={{ maxHeight: '320px', width: '100%', objectFit: 'contain', marginLeft:'10%'  }}
                                             />
                                         </Col>
                                     </Row>
