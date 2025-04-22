@@ -1,4 +1,5 @@
 //src/app.js
+const serverless = require('serverless-http');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors"); // Import the CORS middleware
@@ -23,5 +24,5 @@ app.get("/api/ping", (req, res) => {
 // API Routes
 app.use("/api/profile", profileRoutes);
 app.use("/api/visio-calling", visioCallingRoutes); 
-
-module.exports = app;
+module.exports.handler = serverless(app);
+//module.exports = app;
