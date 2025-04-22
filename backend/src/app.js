@@ -13,6 +13,9 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(bodyParser.json());
 // ✅ Add health check route
+app.get("/", (req, res) => {
+  res.send("Welcome to the API!");
+});
 app.get("/api/ping", (req, res) => {
     res.status(200).json({ status: "ok", message: "API is alive 🎉" });
   });

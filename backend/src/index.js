@@ -1,6 +1,5 @@
 //src/index.js
 require("dotenv").config();
-const serverless = require('serverless-http');
 const app = require("./app");
 const connectDB = require("./config/db");
 const admin = require("firebase-admin");
@@ -36,8 +35,8 @@ const server = http.createServer(app);
 const io = initSocket(server);
 
 // 🚀 Start the server
-//const PORT = process.env.PORT || 5001;
-//server.listen(PORT, () => {
-//  console.log(`Server running on port ${PORT}`);
-//});
-module.exports.handler = serverless(app);
+const PORT = process.env.PORT || 5001;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
