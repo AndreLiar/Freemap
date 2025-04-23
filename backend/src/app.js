@@ -9,7 +9,7 @@ const visioCallingRoutes = require("./routes/visioCallingRoutes.js");
 const app = express();
 
 // Enable CORS for all origins
-app.use(cors({ origin: "https://freemap-puce.vercel.app/", credentials: true }));
+app.use(cors({ origin: "https://freemap-puce.vercel.app", credentials: true }));
 // Parse JSON request bodies
 
 app.use(bodyParser.json());
