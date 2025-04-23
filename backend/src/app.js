@@ -12,7 +12,11 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 // Parse JSON request bodies
 
 app.use(bodyParser.json());
-
+// ✅ Add health check route
+app.get("/api/ping", (req, res) => {
+    res.status(200).json({ status: "ok", message: "API is alive 🎉" });
+  });
+  
 // API Routes
 app.use("/api/profile", profileRoutes);
 app.use("/api/visio-calling", visioCallingRoutes); 
