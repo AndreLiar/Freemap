@@ -3,7 +3,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: "https://freemap-backend.onrender.com/api",
 });
 
 // Function to get auth token
@@ -58,7 +58,7 @@ export const updateProfileField = async (field, value, navigate) => {
 export const createRoom = async () => {
   try {
     const token = await getAuthToken();
-    const data =await api.post(
+    const data = await api.post(
       "/visio-calling/create-room",
       { headers: { Authorization: `Bearer ${token}` } }
     );
