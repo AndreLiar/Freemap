@@ -3,7 +3,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: "https://freemap-backend.onrender.com/api",
 });
 
 // Function to get auth token
