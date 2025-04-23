@@ -50,7 +50,7 @@ const getProfile = async (uid) => {
   const profile = await findProfileByUID(uid);
   // Old: if (!profile) throw new Error("Profile not found");
   // New: simply return `null` if not found
-  return profile; 
+  return profile;
 };
 
 
@@ -82,7 +82,7 @@ const updateProfileField = async (uid, updates) => {
       if ("lng" in updates.location) {
         profile.location.lng = updates.location.lng;
       }
-    }  else if (key === "siret") {
+    } else if (key === "siret") {
       // Minimal format check (14 digits)
       if (!/^\d{14}$/.test(updates.siret)) {
         throw new Error("Invalid SIRET format: must be exactly 14 digits");
@@ -104,17 +104,17 @@ const updateProfileField = async (uid, updates) => {
  * Fetch all profiles inside Île-de-France, with optional filters.
  */
 const getProfilesInIleDeFrance = async (filters = {}) => {
-  if(filters.departement){
-    
-    const bounds= DEPARTEMENTS_BOUNDS[filters.departement];
-    
-     query = {
+  if (filters.departement) {
+
+    const bounds = DEPARTEMENTS_BOUNDS[filters.departement];
+
+    query = {
       "location.lat": { $gte: bounds.minLat, $lte: bounds.maxLat },
       "location.lng": { $gte: bounds.minLng, $lte: bounds.maxLng },
     };
-    
-  }else{
-     query = {
+
+  } else {
+    query = {
       "location.lat": { $gte: ILE_DE_FRANCE_BOUNDS.minLat, $lte: ILE_DE_FRANCE_BOUNDS.maxLat },
       "location.lng": { $gte: ILE_DE_FRANCE_BOUNDS.minLng, $lte: ILE_DE_FRANCE_BOUNDS.maxLng },
     };
@@ -125,7 +125,7 @@ const getProfilesInIleDeFrance = async (filters = {}) => {
     filters.specialization = Array.isArray(filters.specialization)
       ? filters.specialization
       : [filters.specialization];
-    query.$or= filters.specialization.map(spec => ({
+    query.$or = filters.specialization.map(spec => ({
       specialization: { $regex: spec, $options: "i" }
     }))
     // query.specialization = { $regex: filters.specialization, $options: "i" }; // Case-insensitive
@@ -135,12 +135,12 @@ const getProfilesInIleDeFrance = async (filters = {}) => {
   if (filters.certifiedOnly) {
     query.certified = true;
   }
-  
+
   // Optional: Pagination (limit & skip)
-  const limit = filters.limit ? parseInt(filters.limit) : 20; // Default: 20 results
+  const limit = filters.limit ? parseInt(filters.limit) : 200; // Default: 20 results
   const skip = filters.skip ? parseInt(filters.skip) : 0;
 
   return await UserProfile.find(query).limit(limit).skip(skip);
 };
 
-module.exports = { getProfile, saveProfile, updateProfileField , getProfilesInIleDeFrance};
+module.exports = { getProfile, saveProfile, updateProfileField, getProfilesInIleDeFrance };
