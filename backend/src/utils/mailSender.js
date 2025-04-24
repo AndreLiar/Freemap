@@ -12,7 +12,7 @@ export const transporter = nodemailer.createTransport({
 
 
 export function sendMailToUser(userEmail, senderEmail, roomId) {
-    
+
     const message = `
   <p>Bonjour ${userEmail},</p>
 
@@ -34,6 +34,7 @@ export function sendMailToUser(userEmail, senderEmail, roomId) {
     };
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
+            console.log(error);
             return error;
         } else {
             return info.response;
