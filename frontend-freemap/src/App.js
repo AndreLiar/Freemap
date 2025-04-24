@@ -75,8 +75,9 @@ function App() {
         draggable
         pauseOnHover
         theme="light" 
-        />
+        >
           <IncomingCall />
+        </ToastContainer>
     </AuthProvider>
   );
 }
