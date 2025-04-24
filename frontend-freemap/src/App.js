@@ -40,7 +40,7 @@ function App() {
           /> */}
           <Route path="/incoming-call" element={<IncomingCall />} />
           <Route path="/room/:roomId" element={<JitsiRoom />} />
-           <Route path="/home" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
 
           {/* Protected Routes */}
           <Route
@@ -74,10 +74,10 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light" 
-        >
-          <IncomingCall />
-        </ToastContainer>
+        theme="light"
+      />
+      <IncomingCall />
+
     </AuthProvider>
   );
 }
