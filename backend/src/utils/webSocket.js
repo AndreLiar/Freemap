@@ -27,7 +27,11 @@ const initSocket = (server) => {
                     };
                     const userEmail = await admin.auth().getUser(userId);
                     const senderEmail = await admin.auth().getUser(senderId);
-                    sendMailToUser(userEmail.email, senderEmail.email, roomId);
+                    if( result = sendMailToUser(userEmail.email, senderEmail.email, roomId)){
+                        console.log("Email envoyé avec succès à l'utilisateur :", result);
+                    }else {
+                        console.log("Erreur lors de l'envoi de l'email :", result);
+                    }
                     io.emit(`notification-${userId}`, notification);
                     
             } catch (error) {
