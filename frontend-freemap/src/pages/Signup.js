@@ -59,9 +59,10 @@ const SignUpPage = () => {
               Rejoignez la communauté <strong>Freemap</strong>. <br />
               Créez votre compte pour accéder à tous nos services et outils.
             </p>
-            <Button variant="light" className="bg-primary border-2 text-white fw-bold mt-3">
-              Se connecter
-            </Button>
+                        <Button variant="light" onClick={() => navigate('/Signin') } className="bg-primary border-2 text-white  fw-bold mt-3"> Se connecter
+                        </Button>
+            
+             
           </Col>
 
           {/* Right side (form) */}

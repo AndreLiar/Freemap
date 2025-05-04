@@ -57,9 +57,8 @@ const Login = () => {
             Candidats, étudiants et professeurs, accédez aux services et outils 
             Augustin Ruinard grâce à votre compte.
           </p>
-          <Button variant="light" className="bg-primary border-2 text-white  fw-bold mt-3">
-            Créer votre compte
-          </Button>
+            <Button variant="light" onClick={() => navigate('/Signup') } className="bg-primary border-2 text-white  fw-bold mt-3">Créer votre compte</Button>
+          
         </Col>
 
         {/* Right side (form) */}
