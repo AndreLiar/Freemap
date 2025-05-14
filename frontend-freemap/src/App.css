@@ -13,6 +13,27 @@
   }
 }
 
+
+
+.navbar-collapse-custom {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-collapse-custom.open {
+  max-height: 300px; /* ou assez pour afficher les boutons */
+}
+
+
+
+
+
+
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
